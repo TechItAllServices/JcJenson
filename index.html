@@ -89,6 +89,43 @@
             line-height: 1.6;
         }
 
+        .news-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #ff0000, #cc0000);
+            color: #ffffff;
+            text-align: center;
+            padding: 12px 20px;
+            font-family: 'HomeVideo', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            border-bottom: 3px solid #000000;
+            z-index: 9999;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .news-banner .temp-label {
+            background-color: #ffff00;
+            color: #000000;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+
+        body {
+            padding-top: 60px;
+        }
+
         .links {
             color: #0800ee;
             display: flex;
@@ -149,6 +186,11 @@
     </style>
 </head>
 <body>
+    <div class="news-banner">
+        <span class="temp-label">BREAKING NEWS</span>
+        "Shroud's the notorious killer know as the 'Pussy Mangler'" - Dingus 2026
+    </div>
+    
     <div class="main">
         <div class="mainlogo">
             <img src="assets/logobrightnobackground.png" alt="JcJenson Logo">
