@@ -122,6 +122,36 @@
             font-style: italic;
         }
 
+        .yellow-jitter {
+            color: #ffeb3b;
+            display: inline-block;
+            animation: jitter 0.8s infinite;
+        }
+
+        @keyframes jitter {
+            0% { transform: translate(0px, 0px) rotate(0deg); }
+            5% { transform: translate(-3px, 2px) rotate(-1deg); }
+            10% { transform: translate(4px, -3px) rotate(0.5deg); }
+            15% { transform: translate(-2px, 4px) rotate(-0.5deg); }
+            20% { transform: translate(3px, -2px) rotate(1deg); }
+            25% { transform: translate(-4px, 3px) rotate(-1deg); }
+            30% { transform: translate(2px, -4px) rotate(0.5deg); }
+            35% { transform: translate(-3px, -3px) rotate(-0.5deg); }
+            40% { transform: translate(4px, 2px) rotate(1deg); }
+            45% { transform: translate(-2px, -3px) rotate(-1deg); }
+            50% { transform: translate(3px, 4px) rotate(0.5deg); }
+            55% { transform: translate(-4px, -2px) rotate(-0.5deg); }
+            60% { transform: translate(2px, 3px) rotate(1deg); }
+            65% { transform: translate(-3px, 2px) rotate(-1deg); }
+            70% { transform: translate(4px, -4px) rotate(0.5deg); }
+            75% { transform: translate(-2px, 3px) rotate(-0.5deg); }
+            80% { transform: translate(3px, -3px) rotate(1deg); }
+            85% { transform: translate(-4px, 2px) rotate(-1deg); }
+            90% { transform: translate(2px, -2px) rotate(0.5deg); }
+            95% { transform: translate(-3px, 4px) rotate(-0.5deg); }
+            100% { transform: translate(0px, 0px) rotate(0deg); }
+        }
+
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.85; }
@@ -197,7 +227,23 @@
             '"*CLANG* *CLANG* *CLANG* *CLANG* *CRUUNCH* YYYEEEAAAOOOWWW" - Someone 2026',
             '"And they said pirating all that anime was pointless" - Uzi',
             { html: '<span class="purple-italic">"BITE ME!"</span> - Uzi' },
-            'GREAT START! HHEUHEUAUHAAEUHAUEHAUAE CLAP CLAP CLAP CLAP CLAP CLAP CLAP, AHHHHHHHHHH!" - Poofesure'
+            '"GREAT START! HHEUHEUAUHAAEUHAUEHAUAE CLAP CLAP CLAP CLAP CLAP CLAP CLAP, AHHHHHHHHHH!" - Poofesure',
+            { html: '"I\'m sorry that I said skibidi toilet while you were touching me" - <em>Yours Truly, Rainy</em>' },
+            { html: '"THE FREAKY IS CHASING ME! MOVE PUDDLES! I got hit by a car..." - <em>Yours Truly, Rainy</em>' },
+            { html: '"I get off to scrolling through the paid app section on the App Store, imagining what it would be like to own them, and watching the ads. That\'s why I have 51 minutes on the App Store" - <em>Yours Truly, Rainy</em>' },
+            { html: '"I did NOT write the fucking bee movie" - <em>Yours Truly, Rainy</em>' },
+            { html: '"I JUST GOT BEAT BY ROSA PARKS" - <em>Yours Truly, Rainy</em>' },
+            { html: '"Plus, Freddy doesn\'t have a sweet pussy like yours, I only want that sweet Latina pussy" - <em>Yours Truly, Rainy</em>' },
+            { html: '"Don\'t you feel better after touching my titties?" - <em>Yours Truly, Rainy</em>' },
+            { html: '"Why is it so small? Why doesn\'t it have a penis? That\'s what you said to me when I first hatched!" - <em>Yours Truly, Rainy</em>' },
+            { html: '"OH MY GOD! OH MY GOD! I FOUND A PICTURE OF HER FEET! OH SHIT SHE\'S HUGE! It was like where\'s Waldo" - <em>Yours Truly, Rainy</em>' },
+            { html: '"This is not breastfeeding bro, back up" - <em>Yours Truly, Rainy</em>' },
+            { html: '"Thousands of people each year unalive from BBL surgeries" - <em>Yours Truly, Rainy</em>' },
+            { html: '"Girl, unclench your pussy so I CAN GET MY HAND OUT! STOP SQUIRTING IT\'S NOT HELPING! Oh! There we go!" - <em>Yours Truly, Rainy</em>' },
+            { html: '"If my pussy was acid, would you trip off it?" - <em>Yours Truly, Rainy</em>' },
+            { html: '"THERE\'S MORE AI ART OF HER AND MICHAEL JACKSON!" - <em>Yours Truly, Rainy</em>' },
+            { html: '<span class="yellow-jitter">"It\'s easier to assimilate than explain"</span> - Cyn' },
+            { html: '<span class="yellow-jitter">"CALLBACK PING"</span> - Cyn' }
         ];
 
         // Function to display a quote (random or by index)
