@@ -117,6 +117,11 @@
             font-weight: bold;
         }
 
+        .purple-italic {
+            color: #9d4edd;
+            font-style: italic;
+        }
+
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.85; }
@@ -184,11 +189,76 @@
             }
         }
     </style>
+    <script>
+        // Add quotes to this array - one random quote will be displayed each time the page loads
+        // For special styling, use an object with 'html' property instead of a string
+        const quotes = [
+            '"Shroud\'s the notorious killer know as the \'Pussy Mangler\'" - Dingus 2026',
+            '"*CLANG* *CLANG* *CLANG* *CLANG* *CRUUNCH* YYYEEEAAAOOOWWW" - Someone 2026',
+            '"And they said pirating all that anime was pointless" - Uzi',
+            { html: '<span class="purple-italic">"BITE ME!"</span> - Uzi' },
+            'GREAT START! HHEUHEUAUHAAEUHAUEHAUAE CLAP CLAP CLAP CLAP CLAP CLAP CLAP, AHHHHHHHHHH!" - Poofesure'
+        ];
+
+        // Function to display a quote (random or by index)
+        function displayQuote(index) {
+            const quoteElement = document.getElementById('random-quote');
+            let quoteIndex;
+            
+            // If index is provided, use it; otherwise pick random
+            if (index !== undefined && index >= 0 && index < quotes.length) {
+                quoteIndex = index;
+            } else if (index !== undefined) {
+                console.log(`Invalid index! Please use 0-${quotes.length - 1}`);
+                return;
+            } else {
+                quoteIndex = Math.floor(Math.random() * quotes.length);
+            }
+            
+            const quote = quotes[quoteIndex];
+            
+            if (quoteElement) {
+                if (typeof quote === 'object' && quote.html) {
+                    // Use innerHTML for quotes with special styling
+                    quoteElement.innerHTML = quote.html;
+                } else {
+                    // Use textContent for plain text quotes
+                    quoteElement.textContent = quote;
+                }
+                const logmessages = false; // Set to true to enable logging
+                if (logmessages) {
+                    console.log(`Displaying quote #${quoteIndex}`);
+                }
+            }
+        }
+
+        // Make function available globally for console access
+        window.displayQuote = displayQuote;
+        window.quotes = quotes;
+
+        // Helper setter for easy console use: bannerthing = 2
+        Object.defineProperty(window, 'bannerthing', {
+            set: function(value) {
+                displayQuote(value);
+            },
+            get: function() {
+                console.log('Available quotes (0-' + (quotes.length - 1) + '):');
+                quotes.forEach((q, i) => {
+                    const text = typeof q === 'object' ? q.html.replace(/<[^>]*>/g, '') : q;
+                    console.log(`${i}: ${text.substring(0, 50)}...`);
+                });
+                return 'Set bannerthing to a number (0-' + (quotes.length - 1) + ') to change the quote';
+            }
+        });
+
+        // Run when page loads
+        window.addEventListener('DOMContentLoaded', () => displayQuote());
+    </script>
 </head>
 <body>
     <div class="news-banner">
         <span class="temp-label">BREAKING NEWS</span>
-        "Shroud's the notorious killer know as the 'Pussy Mangler'" - Dingus 2026
+        <span id="random-quote"></span>
     </div>
     
     <div class="main">
