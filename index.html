@@ -132,6 +132,31 @@
             animation: jitter 0.8s infinite;
         }
 
+        .censored-word {
+            background-color: #000000;
+            color: #000000;
+            border-radius: 2px;
+            cursor: pointer;
+            user-select: none;
+            padding: 0 2px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .censored-word.revealed {
+            background-color: transparent;
+            color: inherit;
+        }
+
+        .censored-word.revealed-temp {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .censored-word.revealed-permanent {
+            background-color: transparent;
+            color: inherit;
+        }
+
         @keyframes jitter {
             0% { transform: translate(0px, 0px) rotate(0deg); }
             5% { transform: translate(-3px, 2px) rotate(-1deg); }
@@ -271,6 +296,78 @@
             '"I AM A FVKING ARCHITECT" - Clark'
         ];
 
+        const nsfwWords = [
+            'fuck', 'fucking', 'pussy', 'titties', 'cock', 'balls', 'sex', 'penis',
+            'breastfeeding', 'squirting', 'femboy', 'pregnant'
+        ];
+
+        function censorNsfwWords(container) {
+            if (!container) return;
+
+            const escapedWords = nsfwWords
+                .map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+                .join('|');
+
+            if (!escapedWords) return;
+
+            const nsfwRegex = new RegExp(`\\b(${escapedWords})\\b`, 'gi');
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+            const textNodes = [];
+
+            let currentNode;
+            while ((currentNode = walker.nextNode())) {
+                if (currentNode.textContent && nsfwRegex.test(currentNode.textContent)) {
+                    textNodes.push(currentNode);
+                }
+                nsfwRegex.lastIndex = 0;
+            }
+
+            textNodes.forEach(node => {
+                const text = node.textContent;
+                const fragment = document.createDocumentFragment();
+                let lastIndex = 0;
+                let match;
+
+                nsfwRegex.lastIndex = 0;
+                while ((match = nsfwRegex.exec(text)) !== null) {
+                    const start = match.index;
+                    const end = nsfwRegex.lastIndex;
+
+                    if (start > lastIndex) {
+                        fragment.appendChild(document.createTextNode(text.slice(lastIndex, start)));
+                    }
+
+                    const wordSpan = document.createElement('span');
+                    wordSpan.className = 'censored-word';
+                    wordSpan.textContent = match[0];
+                    wordSpan.title = 'Hover to preview, click to reveal until refresh';
+                    wordSpan.addEventListener('mouseenter', () => {
+                        if (!wordSpan.classList.contains('revealed-permanent')) {
+                            wordSpan.classList.add('revealed-temp');
+                        }
+                    });
+                    wordSpan.addEventListener('mouseleave', () => {
+                        if (!wordSpan.classList.contains('revealed-permanent')) {
+                            wordSpan.classList.remove('revealed-temp');
+                        }
+                    });
+                    wordSpan.addEventListener('click', () => {
+                        wordSpan.classList.remove('revealed-temp');
+                        wordSpan.classList.add('revealed-permanent');
+                    });
+                    fragment.appendChild(wordSpan);
+
+                    lastIndex = end;
+                }
+
+                if (lastIndex < text.length) {
+                    fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+                }
+
+                node.parentNode.replaceChild(fragment, node);
+            });
+        }
+
         // Function to display a quote (random or by index)
         function displayQuote(index) {
             const quoteElement = document.getElementById('random-quote');
@@ -296,6 +393,9 @@
                     // Use textContent for plain text quotes
                     quoteElement.textContent = quote;
                 }
+
+                censorNsfwWords(quoteElement);
+
                 const logmessages = false; // Set to true to enable logging
                 if (logmessages) {
                     console.log(`Displaying quote #${quoteIndex}`);
